@@ -1,5 +1,14 @@
 import { expect, Page, Locator } from '@playwright/test';
 
+interface UserInformation {
+  name: string;
+  email: string;
+  birthday: string;
+  location: string;
+  phone: string;
+  password: string;
+}
+
 export class RandomUserPage {
   private page: Page;
   private user_title: Locator;
@@ -108,10 +117,40 @@ export class RandomUserPage {
     await this.new_user.click();
     await this.page.waitForTimeout(2000);
   }
-  
+
   async getNameValue(): Promise<string> {
     await this.hoverOnNameIcon();
     return await this.getUserValue();
+  }
+
+  async getEmailTitle(): Promise<string> {
+    await this.hoverOnEmailIcon();
+    return await this.getUserTitle();
+  }
+
+  async getBirthdayTitle(): Promise<string> {
+    await this.hoverOnBirthdayIcon();
+    return await this.getUserTitle();
+  }
+
+  async getLocationTitle(): Promise<string> {
+    await this.hoverOnLocationIcon();
+    return await this.getUserTitle();
+  }
+
+  async getPhoneTitle(): Promise<string> {
+    await this.hoverOnPhoneIcon();
+    return await this.getUserTitle();
+  }
+
+  async getPasswordTitle(): Promise<string> {
+    await this.hoverOnPasswordIcon();
+    return await this.getUserTitle();
+  }
+  
+  async getNameTitle(): Promise<string> {
+    await this.hoverOnNameIcon();
+    return await this.getUserTitle();
   }
 
   async getEmailValue(): Promise<string> {
@@ -139,17 +178,15 @@ export class RandomUserPage {
     return await this.getUserValue();
   }
 
-  async getUserInformation(): Promise<any> {
-    const name_value = await this.getNameValue();
-    const email_value = await this.getEmailValue();
-    const birthday_value = await this.getBirthdayValue();
-    const location_value = await this.getLocationValue();
-    const phone_value = await this.getPhoneValue();
-    const password_value = await this.getPasswordValue();
+  async getUserInformation(): Promise<UserInformation> {
+    const name = await this.getNameValue();
+    const email = await this.getEmailValue();
+    const birthday = await this.getBirthdayValue();
+    const location = await this.getLocationValue();
+    const phone = await this.getPhoneValue();
+    const password = await this.getPasswordValue();
 
-    return { name_value, email_value, birthday_value, location_value, phone_value, password_value};
+    return { name, email, birthday, location, phone, password};
   }
-
-
   
 };
