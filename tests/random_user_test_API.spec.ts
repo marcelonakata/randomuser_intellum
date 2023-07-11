@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Random User API Test Suite', () => {
 
-  test('2.1 GET Validate response body layout', async ({ request }) => {
+  test('2.1 GET Validate response body schema', async ({ request }) => {
     const response = await request.get("/api");
   
     expect(response.ok()).toBeTruthy();
@@ -11,7 +11,6 @@ test.describe('Random User API Test Suite', () => {
     const responseBody = await response.json();
     const user = responseBody.results[0];
     
-    // Validate the layout
     expect(user.gender).toBeDefined();
     expect(typeof user.gender).toBe('string');
     expect(user.name.title).toBeDefined();
