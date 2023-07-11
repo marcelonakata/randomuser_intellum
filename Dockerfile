@@ -10,6 +10,8 @@ COPY package.json package-lock.json ./
 # Install dependencies
 RUN npm ci
 
+RUN npx playwright install --with-deps
+
 # Copy the rest of the application files
 COPY . .
 
