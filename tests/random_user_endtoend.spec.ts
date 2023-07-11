@@ -12,11 +12,11 @@ test.describe('Random User End-to-end Test Suite', () => {
     await page.close();
   });
 
-  test('Validate browser title', async ({ page }) => {
+  test('1.1 Validate browser title', async ({ page }) => {
     await expect(page).toHaveTitle("Random User Generator | Home");
   });
 
-  test('Validate titles', async ({ page }) => {
+  test('1.2 Validate titles of user information', async ({ page }) => {
     const expectedNameTitle = "Hi, My name is";
     const expectedBirthdayTitle = "My birthday is";
     const expectedEmailTitle = "My email address is";
@@ -46,7 +46,7 @@ test.describe('Random User End-to-end Test Suite', () => {
     expect(password_title).toEqual(expectedPassowordTitle);
   });
 
-  test('Validate name', async ({ page }) => {
+  test('1.3 Validate user name displayed', async ({ page }) => {
     const randomUserPage = new RandomUserPage(page);
     await randomUserPage.waitToLoadFirstUser();
 
@@ -56,7 +56,7 @@ test.describe('Random User End-to-end Test Suite', () => {
     expect(expectedName).toEqual(nameValueDisplayed);
   });
 
-  test('Validate email', async ({ page }) => {
+  test('1.4 Validate user email displayed', async ({ page }) => {
     const randomUserPage = new RandomUserPage(page);
     await randomUserPage.waitToLoadFirstUser();
 
@@ -66,7 +66,7 @@ test.describe('Random User End-to-end Test Suite', () => {
     expect(emailValueDisplayed).toEqual(expectedEmail);
   });
 
-  test('Validate birthday', async ({ page }) => {
+  test('1.5 Validate user birthday displayed', async ({ page }) => {
     const randomUserPage = new RandomUserPage(page);
     await randomUserPage.waitToLoadFirstUser();
 
@@ -76,7 +76,7 @@ test.describe('Random User End-to-end Test Suite', () => {
     expect(birthdayValueDisplayed).toEqual(expectedBirthday);
   });
 
-  test('Validate location', async ({ page }) => {
+  test('1.6 Validate user location displayed', async ({ page }) => {
     const randomUserPage = new RandomUserPage(page);
     await randomUserPage.waitToLoadFirstUser();
 
@@ -86,7 +86,7 @@ test.describe('Random User End-to-end Test Suite', () => {
     expect(locationValueDisplayed).toEqual(expectedLocation);
   });
 
-  test('Validate phone', async ({ page }) => {
+  test('1.7 Validate user phone displayed', async ({ page }) => {
     const randomUserPage = new RandomUserPage(page);
     await randomUserPage.waitToLoadFirstUser();
 
@@ -96,7 +96,7 @@ test.describe('Random User End-to-end Test Suite', () => {
     expect(phoneValueDisplayed).toEqual(expectedPhone);
   });
 
-  test('Validate password', async ({ page }) => {
+  test('1.8 Validate user password displayed', async ({ page }) => {
     const randomUserPage = new RandomUserPage(page);
 
     await randomUserPage.waitToLoadFirstUser();
@@ -107,7 +107,7 @@ test.describe('Random User End-to-end Test Suite', () => {
     expect(passwordValueDisplayed).toEqual(expectedPassword);
   });
   
-  test('Validate new random user generation', async ({ page }) => {
+  test('1.9 Validate new random user generation', async ({ page }) => {
     const randomUserPage = new RandomUserPage(page);
 
     await randomUserPage.waitToLoadFirstUser();
@@ -118,7 +118,6 @@ test.describe('Random User End-to-end Test Suite', () => {
 
     const newUserInfo = await randomUserPage.getUserInformation();
 
-    // Assert if after clicking on "new" button, the new user's information is different from previous user.
     expect(userInfo.name).not.toEqual(newUserInfo.name);
     expect(userInfo.email).not.toEqual(newUserInfo.email);
     expect(userInfo.birthday).not.toEqual(newUserInfo.birthday);
