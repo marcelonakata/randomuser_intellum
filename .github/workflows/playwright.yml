@@ -12,10 +12,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Configure AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1  # Change this to your desired AWS region
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Set up Docker Build Environment
+        env:
+          ECR_REPOSITORY_URI: 163161484468.dkr.ecr.us-east-1.amazonaws.com/test_repo  # Replace with your ECR repository URI
+        run: echo "ECR_REPOSITORY_URI=$ECR_REPOSITORY_URI" >> $GITHUB_ENV
+    
       - name: Build and run Docker image
         run: |
-          docker build -t randomuser-test .
-          docker run -v ${PWD}/playwright-report:/app/playwright-report/ randomuser-test
+          docker build -t $ECR_REPOSITORY_URI .
+          docker push $ECR_REPOSITORY_URI
+          docker run -v ${PWD}/playwright-report:/app/playwright-report/ $ECR_REPOSITORY_URI
     
       - uses: actions/upload-artifact@v3
         if: always()
